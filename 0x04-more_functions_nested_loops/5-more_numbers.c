@@ -1,13 +1,8 @@
-/*
- * File: 5-more_numbers.c
- * Auth: Ameh Jacob 
- */
-
 #include "main.h"
 
 /**
- * more_numbers - Prints the numbers 0-14 ten times.
- */
+*5-more_numbers - Prints the numbers 0-14 ten times
+*/
 void more_numbers(void)
 {
 	int num, count;
