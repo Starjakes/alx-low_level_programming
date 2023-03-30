@@ -18,4 +18,4 @@ void print_number(int n)
 		print_number(x / 10);
 
 	_putchar(x % 10 + '0');
-
+}
