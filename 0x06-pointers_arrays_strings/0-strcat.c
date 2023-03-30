@@ -1,5 +1,4 @@
 #include "main.h"
-
 /**
  *_strcat - Write a function that concatenates two strings.
  *
@@ -8,7 +7,6 @@
  *
  * Return: This return to dest, that concatenates two strings
  */
-
 char *_strcat(char *dest, char *src)
 {
 	int i, j;
