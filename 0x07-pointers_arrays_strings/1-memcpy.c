@@ -1,6 +1,4 @@
 #include "main.h"
-#include <string.h>
-
 /**
  * _memcpy - copies memory area
  * @dest:char
@@ -8,7 +6,7 @@
  * @n:int
  * Return:char pointer
  */
-void *memcpy(void *restrict dest, const void *restrict src, size_t n);
+char *_memcpy(char *dest, char *src, unsigned int n)
 {
 		unsigned int i;
 
