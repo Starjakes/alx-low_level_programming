@@ -4,7 +4,7 @@
 /*
 * File: main.h
 * Desc: Header file containing the prototypes of all functions
-*included in the static library libmy.a
+*included in the static library given libmy.a
 */
 int _putchar(char c);
 int _islower(int c);
