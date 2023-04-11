@@ -19,3 +19,4 @@ char *_strncat(char *dest, char *src, int n)
 		i++;
 	}
 	return (dest);
+}
