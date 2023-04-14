@@ -1,6 +1,8 @@
+#include "main.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <string.h>
 
 int multiply(char *num1, char *num2);
 int get_digit(char c);
