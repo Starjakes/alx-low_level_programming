@@ -1,129 +1,123 @@
-#include "main.h"
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <ctype.h>
 
+int multiply(char *num1, char *num2);
+int get_digit(char c);
+int is_positive_integer(char *str);
+
 /**
- * _is_zero - determines if any number is zero
- * @argv: argument vector.
+ * main - Entry point
+ * @argc: Argument count
+ * @argv: Array of arguments
  *
- * Return: no return.
+ * Return: 0 on success, 98 on failure
  */
-void _is_zero(char *argv[])
+int main(int argc, char **argv)
 {
-	int i, isn1 = 1, isn2 = 1;
+    int result;
 
-	for (i = 0; argv[1][i]; i++)
-		if (argv[1][i] != '0')
-		{
-			isn1 = 0;
-			break;
-		}
+    if (argc != 3)
+    {
+        printf("Error\n");
+        return (98);
+    }
 
-	for (i = 0; argv[2][i]; i++)
-		if (argv[2][i] != '0')
-		{
-			isn2 = 0;
-			break;
-		}
+    if (!is_positive_integer(argv[1]) || !is_positive_integer(argv[2]))
+    {
+        printf("Error\n");
+        return (98);
+    }
 
-	if (isn1 == 1 || isn2 == 1)
-	{
-		printf("0\n");
-		exit(0);
+    result = multiply(argv[1], argv[2]);
+    printf("%d\n", result);
 
-	}
+    return (0);
 }
 
 /**
- * _initialize_array - set memery to zero in a new array
- * @ar: char array.
- * @lar: length of the char array.
+ * multiply - Multiplies two positive numbers
+ * @num1: First number
+ * @num2: Second number
  *
- * Return: pointer of a char array.
+ * Return: Product of the two numbers
  */
-char *_initialize_array(char *ar, int lar)
+int multiply(char *num1, char *num2)
 {
-	int i = 0;
+    int len1, len2, i, j, digit, carry, sum = 0;
+    int *result;
 
-	for (i = 0; i < lar; i++)
-		ar[i] = '0';
-	ar[lar] = '\0';
-	return (ar);
+    len1 = strlen(num1);
+    len2 = strlen(num2);
+    result = calloc(len1 + len2, sizeof(int));
 
+    if (!result)
+        return (0);
+
+    for (i = len1 - 1; i >= 0; i--)
+    {
+        carry = 0;
+        for (j = len2 - 1; j >= 0; j--)
+        {
+            digit = get_digit(num1[i]) * get_digit(num2[j]) + result[i + j + 1] + carry;
+            carry = digit / 10;
+            result[i + j + 1] = digit % 10;
+        }
+        result[i + j + 1] = carry;
+    }
+
+    for (i = 0; i < len1 + len2; i++)
+    {
+        sum += result[i];
+        result[i] = sum % 10;
+        sum /= 10;
+    }
+
+    while (sum)
+    {
+        result[i++] = sum % 10;
+        sum /= 10;
+    }
+
+    while (i > 0 && result[i - 1] == 0)
+        i--;
+
+    sum = 0;
+    for (j = i - 1; j >= 0; j--)
+        sum = sum * 10 + result[j];
+
+    free(result);
+
+    return (sum);
 }
 
 /**
- * _checknum - determines length of the number
- * and checks if number is in base 10.
- * @argv: arguments vector.
- * @n: row of the array.
+ * get_digit - Gets the digit value of a character
+ * @c: Character to get the digit value of
  *
- * Return: length of the number.
+ * Return: Digit value of the character
  */
-int _checknum(char *argv[], int n)
+int get_digit(char c)
 {
-	int ln;
-
-	for (ln = 0; argv[n][ln]; ln++)
-		if (!isdigit(argv[n][ln]))
-		{
-			printf("Error\n");
-			exit(98);
-		}
-
-	return (ln);
-
+    return (c - '0');
 }
 
 /**
- * main - Entry point.
- * program that multiplies two positive numbers.
- * @argc: number of arguments.
- * @argv: arguments vector.
+ * is_positive_integer - Checks if a string represents a positive integer
+ * @str: String to check
  *
- * Return: 0 - success.
+ * Return: 1 if str is a positive integer, 0 otherwise
  */
-int main(int argc, char *argv[])
+int is_positive_integer(char *str)
 {
-	int ln1, ln2, lnout, add, addl, i, j, k, ca;
-	char *nout;
+    int i;
 
-	if (argc != 3)
-		printf("Error\n"), exit(98);
-	ln1 = _checknum(argv, 1), ln2 = _checknum(argv, 2);
-	_is_zero(argv), lnout = ln1 + ln2, nout = malloc(lnout + 1);
-	if (nout == NULL)
-		printf("Error\n"), exit(98);
-	nout = _initialize_array(nout, lnout);
-	k = lnout - 1, i = ln1 - 1, j = ln2 - 1, ca = addl = 0;
-	for (; k >= 0; k--, i--)
-	{
-		if (i < 0)
-		{
-			if (addl > 0)
-			{
-				add = (nout[k] - '0') + addl;
-				if (add > 9)
-					nout[k - 1] = (add / 10) + '0';
-				nout[k] = (add % 10) + '0';
-			}
-			i = ln1 - 1, j--, addl = 0, ca++, k = lnout - (1 + ca);
-		}
-		if (j < 0)
-		{
-			if (nout[0] != '0')
-				break;
-			lnout--;
-			free(nout), nout = malloc(lnout + 1), nout = _initialize_array(nout, lnout);
-			k = lnout - 1, i = ln1 - 1, j = ln2 - 1, ca = addl = 0;
-		}
-		if (j >= 0)
-		{
-			add = ((argv[1][i] - '0') * (argv[2][j] - '0')) + (nout[k] - '0') + addl;
-			addl = add / 10, nout[k] = (add % 10) + '0';
-		}
-	}
-	printf("%s\n", nout);
-	return (0);
+    for (i = 0; str[i]; i++)
+    {
+        if (!isdigit(str[i]))
+            return (0);
+    }
+
+    return (1);
 }
+
