@@ -15,8 +15,8 @@ listint_t *find_listint_loop(listint_t *head)
 	if (head == NULL || head->next == NULL)
 		return (NULL);
 
-	 = head->next;
-	hare = (head->next)->next;
+	h = head->next;
+	h = (head->next)->next;
 
 	while (h)
 	{
@@ -24,7 +24,7 @@ listint_t *find_listint_loop(listint_t *head)
 		{
 			t = head;
 
-			while (t != hare)
+			while (t != h)
 			{
 				t = t->next;
 				h = h->next;
