@@ -8,23 +8,23 @@
 int count_nodes_till_loop(const listint_t *head)
 {
 	int count = 0;
-	const listint_t *turtle, *hare;
+	const listint_t *t, *h;
 
-	turtle = hare = head;
+	t = h = head;
 
-	while (turtle != NULL && hare != NULL)
+	while (t && h)
 	{
-		turtle = turtle->next;
-		hare = hare->next->next;
+		t = t->next;
+		h = h->next->next;
 		count++;
 
-		if (turtle == hare)
+		if (t == h)
 		{
-			turtle = head;
-			while (turtle != hare)
+			t = head;
+			while (t != h)
 			{
-				turtle = turtle->next;
-				hare = hare->next;
+				t = t->next;
+				h = h->next;
 				count++;
 			}
 			return (count);
@@ -40,16 +40,16 @@ int count_nodes_till_loop(const listint_t *head)
  */
 int loop(const listint_t *head)
 {
-	const listint_t *turtle, *hare;
+	const listint_t *t, *h;
 
-	turtle = hare = head;
+	t = h = head;
 
-	while (turtle != NULL && hare != NULL)
+	while (t && h)
 	{
-		turtle = turtle->next;
-		hare = hare->next->next;
+		t = t->next;
+		h = h->next->next;
 
-		if (turtle == hare)
+		if (t == h)
 			return (1);
 	}
 	return (0);
