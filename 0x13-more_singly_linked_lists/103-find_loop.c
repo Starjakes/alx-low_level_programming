@@ -8,7 +8,7 @@
 
 listint_t *find_listint_loop(listint_t *head)
 {
-	listint_t *turtle, *hare;
+	listint_t *t, *h;
 
 	/* determine if loop exists by seeing if t and h meets */
 	/* start them at head, move t one node and h two nodes */
